@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>Neighbourhood Map</title>
-    <script src="node_modules/knockout/build/output/knockout-latest.js">
-    </script>
+    <script src="node_modules/knockout/build/output/knockout-latest.js" defer></script>
+    <script src="index.js" defer></script>
   </head>
   <body>
     <header>
@@ -14,6 +14,9 @@
     <main id="maps-list-container">
       <div id="list-container">
         <input type="text" value="Text here"/>
+	<ul data-bind="foreach: places">
+          <li data-bind="text: name"></li>
+	</ul>
       </div>
       <div id="map">
       </div>
