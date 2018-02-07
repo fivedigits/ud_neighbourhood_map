@@ -24,8 +24,8 @@ function PlacesModel () {
     
     // This array of places could be loaded from a server.
     self.places = [
-	new Place('Somewhere','XXX', 'here'),
-	new Place('Elsewhere', 'XXX', 'there')
+	new Place('Somewhere','XXX', {lat: 48.864716, lng: 2.349014}),
+	new Place('Elsewhere', 'XXX', {lat: 49.864716, lng: 2.849014})
     ];
 
     // Initially, there are no markers
@@ -41,12 +41,22 @@ function PlacesModel () {
     });
 
     self.displayMarkers = function () {
-	_.each(self.filteredPlaces(), function (place) {
+	// First, remove old markers
+	self.clearMarkers();
+	// Create new markers and store them in self.markers
+	self.markers = _.map(self.filteredPlaces(), function (place) {
 	    var marker = new google.maps.Marker({
-		position:  {lat: 48.864716, lng: 2.349014},
+		position:  place.location,
 		map: self.map
 	    });
 	    return marker;
+	});
+    }
+
+    // function for clearing markers
+    self.clearMarkers = function () {
+	_.each(self.markers, function (marker) {
+	    marker.setMap(null);
 	});
     }
 }
