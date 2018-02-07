@@ -28,6 +28,9 @@ function PlacesModel () {
 	new Place('Elsewhere', 'XXX', 'there')
     ];
 
+    // Initially, there are no markers
+    self.markers = [];
+
     // filteredPlaces is a computed observable returning the places
     // for which place.name includes the currentInput
     self.filteredPlaces = ko.computed(function () {
@@ -37,18 +40,28 @@ function PlacesModel () {
 			});
     });
 
-    self.filterMarkers = function () {
-	console.log("code to filter markers");
+    self.displayMarkers = function () {
+	_.each(self.filteredPlaces(), function (place) {
+	    var marker = new google.maps.Marker({
+		position:  {lat: 48.864716, lng: 2.349014},
+		map: self.map
+	    });
+	    return marker;
+	});
     }
 }
 
+// in order to separate maps api calls and model, the model must be
+// accessible in global context
 const myModel = new PlacesModel();
 
+/** @description Initializes the map on the page sets markers */
 function initMap () {
     myModel.map = new google.maps.Map(document.getElementById("map"), {
 	zoom: 14,
 	center: {lat: 48.864716, lng: 2.349014}
     });
+    myModel.displayMarkers();
 }
 
 ko.applyBindings(myModel);
