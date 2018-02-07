@@ -14,7 +14,8 @@
     </header>
     <main id="maps-list-container">
       <div id="list-container">
-        <input id="filter-field" type="text" data-bind="textInput: currentInput"/>
+        <input id="filter-field" type="text" placeholder="Type to filter" data-bind="textInput: currentInput"/>
+	<button type="button" data-bind="click: filterMarkers">Filter</button>
 	<ul data-bind="foreach: filteredPlaces">
           <li data-bind="text: name"></li>
 	</ul>
