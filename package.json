@@ -6,6 +6,7 @@
   "author": "Moritz Schönherr",
   "license": "GPL-3.0",
   "dependencies": {
-    "knockout": "^3.5.0-beta"
+    "knockout": "^3.5.0-beta",
+    "underscore": "^1.8.3"
   }
 }

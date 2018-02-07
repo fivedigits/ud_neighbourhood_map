@@ -5,3 +5,7 @@
 knockout@^3.5.0-beta:
   version "3.5.0-beta"
   resolved "https://registry.yarnpkg.com/knockout/-/knockout-3.5.0-beta.tgz#0a90af428f6b5dfbba73fe57be1dc78bb3812758"
+
+underscore@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
