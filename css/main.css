@@ -1,0 +1,14 @@
+html, body {
+    height: 100%;
+}
+
+#maps-list-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+}
+
+#map {
+    height: 100vh;
+    width: 100%;
+}

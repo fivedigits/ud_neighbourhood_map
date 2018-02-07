@@ -5,7 +5,7 @@
     @param {latlng} location - The latlng location of the place
 */
 function Place (name, placeid, location) {
-    var self = this;
+    const self = this;
 
     self.name = name;
     self.placeid = placeid;
@@ -17,15 +17,15 @@ function Place (name, placeid, location) {
     @constructor
 */
 function PlacesModel () {
-    var self = this;
+    const self = this;
 
     // currentInput holds the string by which the places are filtered
-    self.currentInput = ko.observable("");
+    self.currentInput = ko.observable('');
     
     // This array of places could be loaded from a server.
     self.places = [
-	new Place("Somewhere","XXX", "here"),
-	new Place("Elsewhere", "XXX", "there")
+	new Place('Somewhere','XXX', 'here'),
+	new Place('Elsewhere', 'XXX', 'there')
     ];
 
     // filteredPlaces is a computed observable returning the places
@@ -40,7 +40,15 @@ function PlacesModel () {
     self.filterMarkers = function () {
 	console.log("code to filter markers");
     }
-
 }
 
-ko.applyBindings(new PlacesModel());
+const myModel = new PlacesModel();
+
+function initMap () {
+    myModel.map = new google.maps.Map(document.getElementById("map"), {
+	zoom: 14,
+	center: {lat: 48.864716, lng: 2.349014}
+    });
+}
+
+ko.applyBindings(myModel);
