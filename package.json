@@ -1,0 +1,11 @@
+{
+  "name": "neighbourhood_map",
+  "version": "1.0.0",
+  "description": "The neighbourhood map project for Udacitys Full Stack Web Dev course.",
+  "main": "index.js",
+  "author": "Moritz Schönherr",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "knockout": "^3.5.0-beta"
+  }
+}
