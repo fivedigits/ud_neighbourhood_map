@@ -43,7 +43,7 @@ function PlacesModel () {
 			});
     });
 
-    self.displayMarkers = function () {
+    self.redisplayMarkers = function () {
 	// First, remove old markers
 	self.clearMarkers();
 	// Create new markers and store them in self.markers
@@ -54,6 +54,18 @@ function PlacesModel () {
 	    });
 	    return marker;
 	});
+
+	// This bounds object is used to set center and zoom of map
+	bounds = new google.maps.LatLngBounds();
+	
+	// Adjust the bounds to fit all markers
+	_.each(self.markers, function (marker) {
+	    bounds.extend(marker.position);
+	});
+
+	// Finally set the center and bound of the map
+	self.map.setCenter(bounds.getCenter());
+	self.map.fitBounds(bounds);
     }
 
     // function for clearing markers
@@ -74,7 +86,7 @@ function initMap () {
 	zoom: 14,
 	center: {lat: 48.864716, lng: 2.349014}
     });
-    myModel.displayMarkers();
+    myModel.redisplayMarkers();
 }
 
 ko.applyBindings(myModel);
