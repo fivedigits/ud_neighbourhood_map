@@ -50,10 +50,21 @@ function PlacesModel () {
 	self.markers = _.map(self.filteredPlaces(), function (place) {
 	    var marker = new google.maps.Marker({
 		position:  place.location,
-		map: self.map
+		map: self.map,
 	    });
 	    return marker;
 	});
+
+	// Bounce all markers on load
+	_.each(self.markers, self.animateMarker);
+    }
+
+    // animates a single marker
+    self.animateMarker = function (marker) {
+	marker.setAnimation(google.maps.Animation.BOUNCE);
+	window.setTimeout(function () {
+	    marker.setAnimation(null)
+	}, 2500);
     }
 
     // function for clearing markers
