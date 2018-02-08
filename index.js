@@ -54,18 +54,6 @@ function PlacesModel () {
 	    });
 	    return marker;
 	});
-
-	// This bounds object is used to set center and zoom of map
-	bounds = new google.maps.LatLngBounds();
-	
-	// Adjust the bounds to fit all markers
-	_.each(self.markers, function (marker) {
-	    bounds.extend(marker.position);
-	});
-
-	// Finally set the center and bound of the map
-	self.map.setCenter(bounds.getCenter());
-	self.map.fitBounds(bounds);
     }
 
     // function for clearing markers
@@ -87,6 +75,19 @@ function initMap () {
 	center: {lat: 48.864716, lng: 2.349014}
     });
     myModel.redisplayMarkers();
+
+    // This bounds object is used to set center and zoom of map
+    // Centering is only done initially, in order to show the
+    // user the full neighbourhood map at all times
+    bounds = new google.maps.LatLngBounds();
+    // Adjust the bounds to fit all markers
+    _.each(myModel.markers, function (marker) {
+	bounds.extend(marker.position);
+    });
+    
+    // Finally set the center and bound of the map
+    myModel.map.setCenter(bounds.getCenter());
+    myModel.map.fitBounds(bounds);
 }
 
 ko.applyBindings(myModel);
