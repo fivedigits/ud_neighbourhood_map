@@ -24,8 +24,11 @@ function PlacesModel () {
     
     // This array of places could be loaded from a server.
     self.places = [
-	new Place('Somewhere','XXX', {lat: 48.864716, lng: 2.349014}),
-	new Place('Elsewhere', 'XXX', {lat: 49.864716, lng: 2.849014})
+	new Place('Le Preverre','ChIJyeg7Pedx5kcRQTfGSHXc8pM', {lat: 48.8499854, lng: 2.3458762}),
+	new Place('Aki','ChIJf_cDSiVu5kcRimPRcNMdRlk', {lat: 48.86614100000001, lng: 2.3352886}),
+	new Place('Au P\'Tit Grec','ChIJ3bpVzu5x5kcR2MrvU4G9-8I', {lat: 48.8427708, lng: 2.3495575}),
+	new Place('Amorino','ChIJpS2RMu9x5kcRY4-FjIVPBc4', {lat: 48.8443279, lng: 2.3492272}),
+	new Place('Academie de la biere', 'ChIJQzaEGcFx5kcRPCZFjZpmbZQ', {lat: 48.839246, lng: 2.339092})
     ];
 
     // Initially, there are no markers
