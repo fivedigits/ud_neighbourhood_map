@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Neighbourhood Map</title>
     <link href="css/main.css" rel="stylesheet"/>
+    <link href="css/solarized.css" rel="stylesheet"/>
     <script src="node_modules/knockout/build/output/knockout-latest.js" defer></script>
     <script src="node_modules/underscore/underscore.js" defer></script>
     <script src="node_modules/jquery/dist/jquery.js" defer></script>
@@ -13,12 +14,11 @@
     </script>
   </head>
   <body>
-    <header>
-      <h1>Neighbourhood Map</h1>
-      <h3>Powered by Google Maps and Fourquares<h3>
-    </header>
     <main id="maps-list-container">
       <div id="list-container">
+	<h1>Neighbourhood Map</h1>
+	<h3>Powered by Google Maps and Fourquares</h3>
+	<p>solarized.css from <a href="https://github.com/thomasf/solarized-css">thomasf</a></p>
         <input id="filter-field" type="text" placeholder="Type to filter" data-bind="textInput: currentInput"/>
 	<button type="button" data-bind="click: filterMarkers">Filter Map</button>
 	<button type="button" data-bind="click: fitMapToMarkers">Recenter Map</button>
