@@ -5,7 +5,7 @@
     @param {latlng} location - The latlng location of the place
 */
 function Place (name, fsid, location) {
-    const self = this;
+    var self = this;
 
     self.name = name;
     self.fsid = fsid;
@@ -17,7 +17,7 @@ function Place (name, fsid, location) {
     @constructor
 */
 function PlacesModel () {
-    const self = this;
+    var self = this;
 
     // currentInput holds the string by which the places are filtered
     self.currentInput = ko.observable('');
@@ -155,7 +155,7 @@ function PlacesModel () {
 
 // in order to separate maps api calls and model, the model must be
 // accessible in global context
-const myModel = new PlacesModel();
+var myModel = new PlacesModel();
 
 /** @description Initializes the map on the page sets markers */
 function initMap () {
