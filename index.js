@@ -43,12 +43,11 @@ function PlacesModel () {
 			});
     });
 
-    self.redisplayMarkers = function () {
-	// First, remove old markers
-	self.clearMarkers();
+    self.populateMarkers = function () {
 	// Create new markers and store them in self.markers
 	self.markers = _.map(self.filteredPlaces(), function (place) {
 	    var marker = new google.maps.Marker({
+		title: place.name,
 		position:  place.location,
 		map: self.map,
 	    });
@@ -59,12 +58,27 @@ function PlacesModel () {
 	_.each(self.markers, self.animateMarker);
     }
 
+    // hides markers whose title is not in filteredPlaces
+    self.filterMarkers = function () {
+	var visiblePlaces = _.map(self.filteredPlaces(), function (place) {
+	    return place.name;
+	});
+
+	_.each(self.markers, function(marker) {
+	    if (visiblePlaces.includes(marker.title)) {
+		marker.setMap(self.map)
+	    } else {
+		marker.setMap(null);
+	    }
+	});
+    }
+
     // animates a single marker
     self.animateMarker = function (marker) {
 	marker.setAnimation(google.maps.Animation.BOUNCE);
 	window.setTimeout(function () {
 	    marker.setAnimation(null)
-	}, 2500);
+	}, 2000);
     }
 
     // function for clearing markers
@@ -85,7 +99,7 @@ function initMap () {
 	zoom: 14,
 	center: {lat: 48.864716, lng: 2.349014}
     });
-    myModel.redisplayMarkers();
+    myModel.populateMarkers();
 
     // This bounds object is used to set center and zoom of map
     // Centering is only done initially, in order to show the
