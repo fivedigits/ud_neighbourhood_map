@@ -4,11 +4,11 @@
     @param {string} placeid - The Google Maps placeid of the place
     @param {latlng} location - The latlng location of the place
 */
-function Place (name, placeid, location) {
+function Place (name, fsid, location) {
     const self = this;
 
     self.name = name;
-    self.placeid = placeid;
+    self.fsid = fsid;
     self.location =location;
 
 }
@@ -24,11 +24,11 @@ function PlacesModel () {
     
     // This array of places could be loaded from a server.
     self.places = [
-	new Place('Le Pré Verre','ChIJyeg7Pedx5kcRQTfGSHXc8pM', {lat: 48.8499854, lng: 2.3458762}),
-	new Place('Aki','ChIJf_cDSiVu5kcRimPRcNMdRlk', {lat: 48.86614100000001, lng: 2.3352886}),
-	new Place('Au P\'Tit Grec','ChIJ3bpVzu5x5kcR2MrvU4G9-8I', {lat: 48.8427708, lng: 2.3495575}),
-	new Place('Amorino','ChIJpS2RMu9x5kcRY4-FjIVPBc4', {lat: 48.8443279, lng: 2.3492272}),
-	new Place('Academie de la biere', 'ChIJQzaEGcFx5kcRPCZFjZpmbZQ', {lat: 48.839246, lng: 2.339092})
+	new Place('Le Pré Verre', '4ba94161f964a52099183ae3', {lat: 48.8499854, lng: 2.3458762}),
+	new Place('Aki','4b1c15a4f964a520d90124e3', {lat: 48.86614100000001, lng: 2.3352886}),
+	new Place('Au P\'Tit Grec','4bca09f70687ef3ba719dbcc', {lat: 48.8427708, lng: 2.3495575}),
+	new Place('Amorino','4bd5e7304e32d13aabb1c180', {lat: 48.8443279, lng: 2.3492272}),
+	new Place('Academie de la biere', '58936c9fa19e903e160c1851', {lat: 48.839246, lng: 2.339092})
     ];
 
 
@@ -51,6 +51,7 @@ function PlacesModel () {
 		title: place.name,
 		position:  place.location,
 		map: self.map,
+		fsid: place.fsid
 	    });
 	    return marker;
 	});
@@ -89,11 +90,11 @@ function PlacesModel () {
 
     // asynchronously loads data form Foursquares and adds an info window to marker
     self.addInfoWindow = function (marker) {
-	var url = 'https://api.foursquare.com/v2/venues/search?client_id=D4LH0EQQE4AH1SGUDFHB4ZXPAMPIWKGQP1YSGLKVXA1VGPBG&client_secret=UZFUZQD21FC2A2MAT4SAEZRJVQIBK4IPGPL0WT1YRUYHS0JD&v=20170801&ll=' + marker.position.lat() + ',' + marker.position.lng() +'&limit=1&intent=match&name=' + marker.title;
+	var url = 'https://api.foursquare.com/v2/venues/' + marker.fsid + '?client_id=D4LH0EQQE4AH1SGUDFHB4ZXPAMPIWKGQP1YSGLKVXA1VGPBG&client_secret=UZFUZQD21FC2A2MAT4SAEZRJVQIBK4IPGPL0WT1YRUYHS0JD&v=20170801'
 
 	$.getJSON(url, function (data) {
 	    var infoWindow = new google.maps.InfoWindow({
-		content: JSON.stringify(data.response)
+		content: self.formatFSResponseData(data)
 	    });
 	    marker.addListener('click', function () {
 		infoWindow.open(self.map, marker);
@@ -103,6 +104,31 @@ function PlacesModel () {
 	    .fail( function () {
 		alert('Failed loading Foursquare data for ' + marker.title);
 	    });
+    }
+
+    self.formatFSResponseData = function (data) {
+	var venue = data.response.venue;
+	var photo = venue.photos.groups[0].items[0];
+	var content = '';
+
+	content += '<h3>' + venue.name + '</h3>';
+	content += 'Address : ' + venue.location.address + '<br>';
+	if (venue.url) {
+	    content += '<a href="' + venue.url + '">Homepage</a><br>';
+	} else {
+	    content += '<a href="' + venue.canonicalUrl + '">Foursquares Page</a></br>';
+	}
+
+	if (venue.description) {
+	    content += '<p>' + venue.description + '</p>';
+	} else {
+	    content += '<p>There is no description available for this place.</p>';
+	}
+
+	if (photo) {
+	    content += '<img src="' + photo.prefix + '300x400' + photo.suffix + '"></img>';
+	}
+	return content;
     }
 
     // function for clearing markers
