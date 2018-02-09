@@ -63,7 +63,7 @@ function PlacesModel () {
 	_.each(self.markers, function (marker) {
 	    self.addInfoWindow(marker);
 	});
-    }
+    };
 
     // hides markers whose title is not in filteredPlaces
     self.filterMarkers = function () {
@@ -71,24 +71,24 @@ function PlacesModel () {
 
 	_.each(self.markers, function(marker) {
 	    if (visiblePlaces.includes(marker.title)) {
-		marker.setMap(self.map)
+		marker.setMap(self.map);
 	    } else {
 		marker.setMap(null);
 	    }
 	});
-    }
+    };
 
     // animates a single marker
     self.animateMarker = function (marker) {
 	marker.setAnimation(google.maps.Animation.BOUNCE);
 	window.setTimeout(function () {
-	    marker.setAnimation(null)
+	    marker.setAnimation(null);
 	}, 2000);
-    }
+    };
 
     // asynchronously loads data form Foursquares and adds an info window to marker
     self.addInfoWindow = function (marker) {
-	var url = 'https://api.foursquare.com/v2/venues/' + marker.fsid + '?client_id=D4LH0EQQE4AH1SGUDFHB4ZXPAMPIWKGQP1YSGLKVXA1VGPBG&client_secret=UZFUZQD21FC2A2MAT4SAEZRJVQIBK4IPGPL0WT1YRUYHS0JD&v=20170801'
+	var url = 'https://api.foursquare.com/v2/venues/' + marker.fsid + '?client_id=D4LH0EQQE4AH1SGUDFHB4ZXPAMPIWKGQP1YSGLKVXA1VGPBG&client_secret=UZFUZQD21FC2A2MAT4SAEZRJVQIBK4IPGPL0WT1YRUYHS0JD&v=20170801';
 
 	$.getJSON(url, function (data) {
 	    var infoWindow = new google.maps.InfoWindow({
@@ -102,7 +102,7 @@ function PlacesModel () {
 	    .fail( function () {
 		alert('Failed loading Foursquare data for ' + marker.title);
 	    });
-    }
+    };
 
     self.formatFSResponseData = function (data) {
 	var venue = data.response.venue;
@@ -127,7 +127,7 @@ function PlacesModel () {
 	    content += '<img src="' + photo.prefix + '300x400' + photo.suffix + '"></img>';
 	}
 	return content;
-    }
+    };
 
     self.fitMapToMarkers = function () {
 	// This bounds object is used to set center and zoom of map
@@ -142,7 +142,7 @@ function PlacesModel () {
 	// Finally set the center and bound of the map
 	self.map.setCenter(bounds.getCenter());
 	self.map.fitBounds(bounds);
-    }
+    };
 
     // This function is called, if a list item is clicked
     // It uses the Maps API to trigger the usual click
@@ -150,7 +150,7 @@ function PlacesModel () {
     self.placeTriggerMarker = function (place) {
 	var marker = _.findWhere(self.markers, {title: place.name});
 	google.maps.event.trigger(marker, 'click', {});
-    }
+    };
 }
 
 // in order to separate maps api calls and model, the model must be
