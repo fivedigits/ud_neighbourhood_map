@@ -23,7 +23,7 @@
 	<button type="button" data-bind="click: filterMarkers">Filter Map</button>
 	<button type="button" data-bind="click: fitMapToMarkers">Recenter Map</button>
 	<ul data-bind="foreach: filteredPlaces">
-          <li data-bind="text: name"></li>
+          <li data-bind="text: name, click: $root.placeTriggerMarker"></li>
 	</ul>
       </div>
       <div id="map">

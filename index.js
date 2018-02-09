@@ -145,6 +145,14 @@ function PlacesModel () {
 	self.map.setCenter(bounds.getCenter());
 	self.map.fitBounds(bounds);
     }
+
+    // This function is called, if a list item is clicked
+    // It uses the Maps API to trigger the usual click
+    // event on the marker corresponding to place
+    self.placeTriggerMarker = function (place) {
+	var marker = _.findWhere(self.markers, {title: place.name});
+	google.maps.event.trigger(marker, 'click', {});
+    }
 }
 
 // in order to separate maps api calls and model, the model must be
