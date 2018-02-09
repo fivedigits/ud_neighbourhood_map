@@ -59,7 +59,7 @@ function PlacesModel () {
 	// Bounce all markers on load
 	_.each(self.markers, self.animateMarker);
 
-	// now attach InfoWindows, later will be ajax query to ???
+	// now attach InfoWindows
 	_.each(self.markers, function (marker) {
 	    self.addInfoWindow(marker);
 	});
