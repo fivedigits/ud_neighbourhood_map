@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+jquery@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+
 knockout@^3.5.0-beta:
   version "3.5.0-beta"
   resolved "https://registry.yarnpkg.com/knockout/-/knockout-3.5.0-beta.tgz#0a90af428f6b5dfbba73fe57be1dc78bb3812758"
