@@ -56,6 +56,17 @@ function PlacesModel () {
 
 	// Bounce all markers on load
 	_.each(self.markers, self.animateMarker);
+
+	// now attach InfoWindows, later will be ajax query to ???
+	_.each(self.markers, function (marker) {
+	    var infoWindow = new google.maps.InfoWindow({
+		content: "Here goes the content"
+	    });
+	    marker.addListener('click', function () {
+		infoWindow.open(self.map, marker);
+		self.animateMarker(marker);
+	    });
+	});
     }
 
     // hides markers whose title is not in filteredPlaces
@@ -99,6 +110,7 @@ function initMap () {
 	zoom: 14,
 	center: {lat: 48.864716, lng: 2.349014}
     });
+
     myModel.populateMarkers();
 
     // This bounds object is used to set center and zoom of map
