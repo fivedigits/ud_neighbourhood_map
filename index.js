@@ -131,13 +131,6 @@ function PlacesModel () {
 	return content;
     }
 
-    // function for clearing markers
-    self.clearMarkers = function () {
-	_.each(self.markers, function (marker) {
-	    marker.setMap(null);
-	});
-    }
-
     self.fitMapToMarkers = function () {
 	// This bounds object is used to set center and zoom of map
 	// Centering is only done initially, in order to show the
@@ -160,6 +153,7 @@ const myModel = new PlacesModel();
 
 /** @description Initializes the map on the page sets markers */
 function initMap () {
+    // using dummy data for initial map display, map is later recentered
     myModel.map = new google.maps.Map(document.getElementById("map"), {
 	zoom: 14,
 	center: {lat: 48.864716, lng: 2.349014}
