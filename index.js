@@ -24,12 +24,13 @@ function PlacesModel () {
     
     // This array of places could be loaded from a server.
     self.places = [
-	new Place('Le Preverre','ChIJyeg7Pedx5kcRQTfGSHXc8pM', {lat: 48.8499854, lng: 2.3458762}),
+	new Place('Le Pré Verre','ChIJyeg7Pedx5kcRQTfGSHXc8pM', {lat: 48.8499854, lng: 2.3458762}),
 	new Place('Aki','ChIJf_cDSiVu5kcRimPRcNMdRlk', {lat: 48.86614100000001, lng: 2.3352886}),
 	new Place('Au P\'Tit Grec','ChIJ3bpVzu5x5kcR2MrvU4G9-8I', {lat: 48.8427708, lng: 2.3495575}),
 	new Place('Amorino','ChIJpS2RMu9x5kcRY4-FjIVPBc4', {lat: 48.8443279, lng: 2.3492272}),
 	new Place('Academie de la biere', 'ChIJQzaEGcFx5kcRPCZFjZpmbZQ', {lat: 48.839246, lng: 2.339092})
     ];
+
 
     // Initially, there are no markers
     self.markers = [];
@@ -59,13 +60,7 @@ function PlacesModel () {
 
 	// now attach InfoWindows, later will be ajax query to ???
 	_.each(self.markers, function (marker) {
-	    var infoWindow = new google.maps.InfoWindow({
-		content: "Here goes the content"
-	    });
-	    marker.addListener('click', function () {
-		infoWindow.open(self.map, marker);
-		self.animateMarker(marker);
-	    });
+	    self.addInfoWindow(marker);
 	});
     }
 
@@ -90,6 +85,24 @@ function PlacesModel () {
 	window.setTimeout(function () {
 	    marker.setAnimation(null)
 	}, 2000);
+    }
+
+    // asynchronously loads data form Foursquares and adds an info window to marker
+    self.addInfoWindow = function (marker) {
+	var url = 'https://api.foursquare.com/v2/venues/search?client_id=D4LH0EQQE4AH1SGUDFHB4ZXPAMPIWKGQP1YSGLKVXA1VGPBG&client_secret=UZFUZQD21FC2A2MAT4SAEZRJVQIBK4IPGPL0WT1YRUYHS0JD&v=20170801&ll=' + marker.position.lat() + ',' + marker.position.lng() +'&limit=1&intent=match&name=' + marker.title;
+
+	$.getJSON(url, function (data) {
+	    var infoWindow = new google.maps.InfoWindow({
+		content: JSON.stringify(data.response)
+	    });
+	    marker.addListener('click', function () {
+		infoWindow.open(self.map, marker);
+		self.animateMarker(marker);
+	    });
+	})
+	    .fail( function () {
+		alert('Failed loading Foursquare data for ' + marker.title);
+	    });
     }
 
     // function for clearing markers
