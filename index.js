@@ -67,9 +67,7 @@ function PlacesModel () {
 
     // hides markers whose title is not in filteredPlaces
     self.filterMarkers = function () {
-	var visiblePlaces = _.map(self.filteredPlaces(), function (place) {
-	    return place.name;
-	});
+	var visiblePlaces = _.pluck(self.filteredPlaces(), 'name');
 
 	_.each(self.markers, function(marker) {
 	    if (visiblePlaces.includes(marker.title)) {
