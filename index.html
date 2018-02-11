@@ -20,8 +20,7 @@
 	<h1>Neighbourhood Map</h1>
 	<h3>Powered by Google Maps and Foursquares</h3>
 	<p>solarized.css from <a href="https://github.com/thomasf/solarized-css">thomasf</a></p>
-        <input id="filter-field" type="text" placeholder="Type to filter" data-bind="textInput: currentInput"/>
-	<button type="button" data-bind="click: filterMarkers">Filter Map</button>
+        <input id="filter-field" type="text" placeholder="Type to filter" data-bind="textInput: currentInput, event: { keyup: filterMarkers }"/>
 	<button type="button" data-bind="click: fitMapToMarkers">Recenter Map</button>
 	<ul data-bind="foreach: filteredPlaces">
           <li data-bind="text: name, click: $root.placeTriggerMarker"></li>
