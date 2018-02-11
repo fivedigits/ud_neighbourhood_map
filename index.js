@@ -149,7 +149,7 @@ function PlacesModel () {
     // event on the marker corresponding to place
     self.placeTriggerMarker = function (place) {
 	var marker = _.findWhere(self.markers, {title: place.name});
-	google.maps.event.trigger(marker, 'click', {});
+	marker ? google.maps.event.trigger(marker, 'click', {}) : alert("No marker could be found for " + place.name);
     };
 }
 
@@ -170,6 +170,11 @@ function initMap () {
 
     // fits the map to show all markers
     myModel.fitMapToMarkers();
+}
+
+function signalMapsFail () {
+    alert("There was an error loading the Google Maps API, please try reloading the site.");
+
 }
 
 ko.applyBindings(myModel);
