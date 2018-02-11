@@ -40,7 +40,7 @@ function PlacesModel () {
     self.filteredPlaces = ko.computed(function () {
 	return _.filter(self.places,
 			function (place) {
-			    return place.name.includes(self.currentInput());
+			    return place.name.toLowerCase().includes(self.currentInput().toLowerCase());
 			});
     });
 
